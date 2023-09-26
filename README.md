@@ -1,97 +1,68 @@
-# M5 - Kopa do Mundo
+# Soccer Championship API Project
 
-## Preparando ambiente para execução dos testes
-### Procedimentos para rodar os testes da tarefa 1
-1. Faça a instalação das bibliotecas de teste:
-```shell
-pip install pytest-testdox pytest-django
-```
-2. Use o comando abaixo para rodar os testes referentes à tarefa 1:
-```shell
-pytest --testdox -vvs tests/tarefas/tarefa_1/
-```
----
-### Procedimentos para rodar os testes a partir da tarefa 2
-1. Verifique se os pacotes pytest, pytest-testdox e/ou pytest-django estão instalados globalmente em seu sistema:
-```shell
-pip list
-```
-2. Caso eles apareçam na listagem, rode os comandos abaixo para realizar a desinstalação:
+## Introduction
 
-```shell
-pip uninstall pytest pytest-testdox -y
-```
-3. Após isso, crie seu ambiente virtual:
-```shell
-python -m venv venv
-```
+In this project, I used Python with Django, Django ORM and SQLite3 to create an API for organizing a football championship. Each team represents a national selection. To maintain a minimum level of organization, several validations are required.
 
-4. Ative seu ambiente virtual:
-
-```shell
-# Linux:
-source venv/bin/activate
-
-# Windows (PowerShell):
-.\venv\Scripts\activate
-
-# Windows (GitBash):
-source venv/Scripts/activate
-```
+ [Original repository](https://github.com/Lih3006/soccer-championship-API)
 
 
-5. Instale as bibliotecas necessárias:
 
-```shell
-pip install pytest-testdox pytest-django
-```
+## Routes
 
-6. Como, a partir da tarefa 2, você utilizará Django, é necessário criar um arquivo bem importante: **pytest.ini**. Crie-o na raiz do projeto e adicione dentro dele o seguindo texto:
-```python
-[pytest]
-DJANGO_SETTINGS_MODULE = kopa_do_mundo.settings
-```
+| Endpoint               | HTTP Verb | Objective              |
+|------------------------|-----------|------------------------|
+| `api/teams/`           | POST      | Register a selection   |
+| `api/teams/`           | GET       | List selections        |
+| `api/teams/<team_id>/` | GET       | Filter selection       |
+| `api/teams/<team_id>/` | PATCH     | Update selection       |
+| `api/teams/<team_id>/` | DELETE    | Delete selection       |
 
-Após isso, você pode executar os comandos abaixo para rodar os testes (inclusive da tarefa 1):
-- Tarefa 1
+## Project Details
 
-```shell
-pytest --testdox -vvs tests/tarefas/tarefa_1/
-```
+### Register a Selection (POST)
 
-- Tarefa 2
+**Description:**
+- Allows the registration of a national selection (team).
 
-```shell
-pytest --testdox -vvs tests/tarefas/tarefa_2/
-```
+**Business Rules:**
+- Teams must have unique names.
+- The request body should include the team's name and other relevant information.
+- Return the newly created team with a unique identifier.
 
-- Tarefa 3
+### List Selections (GET)
 
-```shell
-pytest --testdox -vvs tests/tarefas/tarefa_3/
-```
+**Description:**
+- Lists all registered national selections (teams).
 
-- Tarefa 4
+**Business Rules:**
+- Return a list of all registered teams.
 
-```shell
-pytest --testdox -vvs tests/tarefas/tarefa_4/
-```
+### Filter Selection (GET)
 
----
+**Description:**
+- Allows filtering of a national selection (team) based on its unique identifier.
 
-Você também pode rodar cada método de teste isoladamente:
+**Business Rules:**
+- Return the team details corresponding to the given identifier.
+- If the team is not found, return an appropriate error message.
 
-```shell
-pytest --testdox -vvs caminho/para/o/arquivo/de/teste::NomeDaClasse::nome_do_metodo_de_teste
-```
+### Update Selection (PATCH)
 
-Exemplo: executar somente "test_object_representation"
+**Description:**
+- Allows updating the information of a national selection (team) based on its unique identifier.
 
-```shell
-pytest --testdox -vvs tests/tarefas/tarefa_1/test_model.py::TeamModelTest::test_object_representation
-```
+**Business Rules:**
+- The request body can include updated team information.
+- Return the updated team details.
+- If the team is not found, return an appropriate error message.
 
-Caso queira, também é possível rodar todos os testes de uma vez:
-```shell
-pytest --testdox -vvs
-```
+### Delete Selection (DELETE)
+
+**Description:**
+- Allows deleting a national selection (team) based on its unique identifier.
+
+**Business Rules:**
+- Delete the team corresponding to the given identifier.
+- If the team is not found, return an appropriate error message.
+
